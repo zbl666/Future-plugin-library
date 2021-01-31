@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .selectBox{
+            width: 300px;
+            height: 36px;
+            line-height: 36px;
+            background: #f72323;
+        }
+        .inputCase{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+        }
+        .inputCase input.imitationSelect{
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            display: block;
+            text-indent: 15px;
+            cursor: default;
+        }
+        .inputCase input.close_s{
+            background-image: url(./dist/arrow-down.png);
+            background-repeat: no-repeat;
+            background-position: 97% 50%;
+            background-size: 15px;
+        }
+        .inputCase input.open_s{
+            background-image: url(./dist/arrow-up.png);
+            background-repeat: no-repeat;
+            background-position: 97% 50%;
+            background-size: 15px;
+        }
+        .selectUl{
+            display: none;
+            padding: 0;
+            margin: 0;
+            border-bottom: 1px solid #ccc;
+            border-left: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+
+        }
+        .selectUl li{
+            height: 36px;
+            line-height: 36px;
+            list-style: none;
+            text-indent: 15px;
+            border-bottom: 1px solid #ccc;transition: all .5s ease 0s;
+
+        }
+        .selectUl li:hover{
+            background: #ddd;
+        }
+        .selectUl li:last-child{
+            border-bottom: 0 none;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+</head>
+<body>
+<div class="selectBox" id="select1">
+    <div class="inputCase">
+        <input class="imitationSelect close_s" type="text" value="橘子" id="imitationSelect" readonly/>
+    </div>
+    <ul class="selectUl">
+        <li data-val="我是橘子" data-id="1"  class="actived_li">橘子</li>
+        <li data-val="我是苹果" data-id="2">苹果</li>
+        <li data-val="我是桃子" data-id="3">桃子</li>
+
+    </ul>
+</div>
+
+<script>
+    select('select1')
+    //idName为下拉框容器的id
+    function select(idName){
+        let IdName=document.getElementById(''+idName+''),
+            selectUl=IdName.getElementsByClassName('selectUl')[0],
+            fa=IdName.getElementsByClassName('fa')[0],
+            liArr=selectUl.getElementsByTagName('li'),
+            imitationSelect=IdName.getElementsByClassName('imitationSelect')[0];
+
+        imitationSelect.onclick= function(){
+            if(selectUl.style.display=="block"){
+                selectUl.style.display='none';
+            }else{
+                selectUl.style.display='block';
+            };
+            if(imitationSelect.classList.contains('close_s')){
+                imitationSelect.classList.remove('close_s');
+                imitationSelect.classList.add('open_s');
+            }else{
+                imitationSelect.classList.remove('open_s');
+                imitationSelect.classList.add('close_s');
+            };
+            if(window.event){
+                window.event.cancelBubble = true;
+            }
+        }
+        function removeClass(){
+            for(let i=0;i<liArr.length;i++){
+                liArr[i].className='';
+            }
+        }
+        //赋值，默认为data-id和data-val,可自行添加修改
+        for(let i=0;i<liArr.length;i++){
+            liArr[i].addEventListener('click',function(event){
+                removeClass();
+                liArr[i].className='actived_li';
+                let data_val=liArr[i].dataset.val;
+                let data_id=liArr[i].dataset.id;
+                imitationSelect.value=''+data_val+'';
+                imitationSelect.dataset.val=''+data_val+'';
+                imitationSelect.dataset.id=''+data_id+'';
+                selectUl.style.display='none';
+            })
+        }
+        document.addEventListener('click',function(event){
+            imitationSelect.classList.remove('open_s');
+            imitationSelect.classList.add('close_s');
+            selectUl.style.display='none';
+            console.log('1')
+        })
+    }
+</script>
+</body>
+</html>
