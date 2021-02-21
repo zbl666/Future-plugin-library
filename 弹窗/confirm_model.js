@@ -1,7 +1,7 @@
 /*
     head  头部信息
     content  要加入的内容（div）
-    flag  是否添加确定取消按钮   true/false===不填
+    flag  是否添加确定取消按钮  
     callback  点击确定后要执行的函数
     width 要显示提示框的宽度
     height 要显示的提示框的高度
