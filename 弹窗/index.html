@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>弹窗</title>
+</head>
+<style>
+    .contain1 {
+        background: cornflowerblue;
+        height:76px;
+        line-height: 76px;
+        text-align: center;
+    }
+    .contain2 {
+        background: dodgerblue;
+    }
+    .contain3 {
+        background: palevioletred;
+    }
+</style>
+<body>
+<button id="model1">
+    text1
+</button>
+<button id="model2">
+    text2
+</button>
+<div class="contain1" >
+    内容1
+</div>
+<div class="contain2" >
+    内容2
+</div>
+</body>
+<script src="confirm_model.js"></script>
+<script type="text/javascript">
+    var model1 = document.getElementById("model1");
+    var c1 = document.getElementsByClassName("contain1")[0];
+    function modelF1(){
+        close_model();
+        alert("model1");
+    }
+    model1.onclick=function(){
+        confirmModalSelf('tips',c1,true,modelF1)
+    }
+
+    var model2 = document.getElementById("model2");
+    var c2 = document.getElementsByClassName("contain2")[0];
+    function modelF2(){
+        close_model();
+        alert("model2");
+    }
+    function modelC2(){
+        close_model();
+        alert("我取消了");
+    }
+    model2.onclick=function(){
+        confirmModalSelf('tips',c2,true,modelF2,'600px','400px',modelC2)
+    }
+</script>
+</html>
