@@ -1,7 +1,7 @@
 /*
     head  头部信息
     content  要加入的内容（div）
-    flag  是否添加确定取消按钮  
+    flag  是否添加确定取消按钮
     callback  点击确定后要执行的函数
     width 要显示提示框的宽度
     height 要显示的提示框的高度
@@ -227,11 +227,11 @@ function confirmModalSelf(head, content, flag, callback, width, height, cancelCa
         '    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);background: white;';
     videoId.style.width = width || "270px";
     videoId.style.height = height || "180px";
-    <!--模态框头部-->
+    //模态框头部
     //头部包裹2
     var modal_header_1dNxf = document.createElement("div");
     modal_header_1dNxf.className = 'modal_header_1dNxf connection-modal_header_12IsA';
-    modal_header_1dNxf.style = "position: absolute;top: 0;left: 0;"
+    modal_header_1dNxf.style = "position: absolute;top: 0;left: 0;cursor:move;"
     //头部包裹3
     var modal_header_item_1WbOm = document.createElement("div");
     modal_header_item_1WbOm.className = 'modal_header-item_1WbOm';
@@ -252,7 +252,7 @@ function confirmModalSelf(head, content, flag, callback, width, height, cancelCa
     const modal_center = document.createElement('div');
     modal_center.className='modal_center';
     modal_center.innerHTML='<!--模态框内容-->';
-    <!--模态框内容第二层-->
+    //模态框内容第二层
     var modal_center_content = document.createElement('div');
     modal_center_content.className = 'modal_center_content';
 
@@ -264,6 +264,19 @@ function confirmModalSelf(head, content, flag, callback, width, height, cancelCa
     document.querySelector("#cameraCloseId").addEventListener('click', function () {
         close_model();
     })
+    //头部移动
+    modal_header_1dNxf.addEventListener("mousedown", (event) => {
+        const x = event.pageX - videoId.offsetLeft;
+        const y = event.pageY - videoId.offsetTop;
+        document.addEventListener("mousemove", move);
+        function move(event) {
+          videoId.style.left = event.pageX - x + "px";
+          videoId.style.top = event.pageY - y + "px";
+        }
+        document.addEventListener("mouseup", () => {
+          document.removeEventListener("mousemove", move);
+        });
+      });
     // 添加模态框关闭事件
     _model_input_cancel.addEventListener('click', function () {
         cancelCallback ? cancelCallback() : close_model();
